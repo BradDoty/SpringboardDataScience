@@ -603,3 +603,38 @@ SELECT sub.name, M.surname || ", " || M.firstname AS name, hours
 
 /* Q13: Find the facilities usage by month, but not guests */
 
+SELECT F.name, strftime('%m', date(starttime)) AS mon, SUM(slots) / 2.0 AS hours
+            FROM Bookings B
+            JOIN Facilities F USING (facid)
+            JOIN Members M USING (memid)
+            WHERE M.memid != 0
+            GROUP BY F.name, mon
+            ORDER BY hours DESC
+
+('Badminton Court', '09', 253.5)
+('Pool Table', '09', 221.5)
+('Tennis Court 1', '09', 208.5)
+('Badminton Court', '08', 207.0)
+('Tennis Court 2', '09', 207.0)
+('Snooker Table', '09', 202.0)
+('Massage Room 1', '09', 201.0)
+('Table Tennis', '09', 200.0)
+('Tennis Court 2', '08', 172.5)
+('Tennis Court 1', '08', 169.5)
+('Massage Room 1', '08', 158.0)
+('Snooker Table', '08', 158.0)
+('Pool Table', '08', 151.5)
+('Table Tennis', '08', 148.0)
+('Tennis Court 1', '07', 100.5)
+('Squash Court', '08', 92.0)
+('Squash Court', '09', 92.0)
+('Massage Room 1', '07', 83.0)
+('Badminton Court', '07', 82.5)
+('Snooker Table', '07', 70.0)
+('Tennis Court 2', '07', 61.5)
+('Pool Table', '07', 55.0)
+('Table Tennis', '07', 49.0)
+('Squash Court', '07', 25.0)
+('Massage Room 2', '09', 14.0)
+('Massage Room 2', '08', 9.0)
+('Massage Room 2', '07', 4.0)
